@@ -15,7 +15,7 @@ from facenet.src.facenet import *
 
 class VideoExtract():
 
-    def __init__(self, fps, duration, video_part):
+    def __init__(self, fps, duration, video_part, face_extraction_model):
 
         self.destination_dir = "data/speaker_video_spectrograms_" + str(video_part) + "/"
         self.orig_dataset = "data/videos/"
@@ -24,6 +24,7 @@ class VideoExtract():
 
         self.fps = fps
         self.duration = duration
+        self.face_extraction_model
 
         if not os.path.isdir(destination_dir):
             os.mkdir(destination_dir)
@@ -35,7 +36,7 @@ class VideoExtract():
             os.mkdir(model_dir)
             download_and_extract_file(model_name = "20180402-114759", data_dir = model_dir)
 
-    def extract_video(self, id, x, y, fps = self.fps, duration = self.duration):
+    def extract_video(self, id, x, y, fps = self.fps, duration = self.duration, face_extraction_model = self.face_extraction_model):
 
         #See csv file for id and check orig folder for video
         with tf.Graph().as_default():
@@ -76,7 +77,7 @@ class VideoExtract():
                           
                         #print("reading frame, {0}".format(j))
                         frame = Image.open(self.frames_dir + "%02d" % j + ".jpg")
-                        face_boxes = face_recognition.face_locations(np.array(frame), model= "cnn")
+                        face_boxes = face_recognition.face_locations(np.array(frame), model= face_extraction_model)
                         
                         if(len(face_boxes) > 1):  #if 2 faces are detected,then take center of box from csv and find nearest center from 2 boxes
                             print("-----2 faces detected in {0} frame {1}-----".format(data.loc[i, "id"], j))

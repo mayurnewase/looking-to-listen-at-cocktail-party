@@ -55,12 +55,10 @@ STEPS:
 
 	install requirements
 	./prepare_directory
-
-	!git clone https://github.com/davidsandberg/facenet.git
-	!pip install face_recognition
-	!sudo apt-get --assume-yes install ffmpeg
-	sudo apt-get install youtube-dl
-
+	python3 data/chatter_download.py
+	python3 data/chatter_slicer.py
+	
+	python data/data_download.py
 
 
 

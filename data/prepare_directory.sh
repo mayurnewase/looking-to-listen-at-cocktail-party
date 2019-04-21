@@ -30,10 +30,6 @@ pip install face_recognition
 sudo apt-get --assume-yes install ffmpeg
 sudo apt-get --assume-yes --fix-missing install youtube-dl
 
-python3 data/chatter_download.py
-python3 data/chatter_slicer.py
-
 rm -rf data/temp/*
 
-echo "Done downloading chatter_files from audioset...."
-echo "Now you can download avspeech dataset."
+echo "Done setting up directories and environment,now proceed to download dataset...."
