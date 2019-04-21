@@ -23,6 +23,8 @@ mkdir -p data/temp/chatter_video
 
 echo "Done setting up directories set"
 
+pip install -r requirements.txt
+
 git clone https://github.com/davidsandberg/facenet.git data/facenet/
 pip install face_recognition
 sudo apt-get --assume-yes install ffmpeg
