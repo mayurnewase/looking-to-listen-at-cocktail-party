@@ -48,6 +48,11 @@ add chatter slicer
 ------------------------------
 STEPS:
 
+	git clone https://github.com/davidsandberg/facenet.git
+	pip install face_recognition
+	sudo apt-get --assume-yes install ffmpeg
+	sudo apt-get install youtube-dl
+
 	install requirements
 	./prepare_directory
 

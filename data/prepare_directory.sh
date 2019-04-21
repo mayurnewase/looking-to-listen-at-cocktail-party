@@ -23,6 +23,11 @@ mkdir -p data/temp/chatter_video
 
 echo "Done setting up directories set"
 
+git clone https://github.com/davidsandberg/facenet.git data/facenet/
+pip install face_recognition
+sudo apt-get --assume-yes install ffmpeg
+sudo apt-get install youtube-dl
+
 python3 data/chatter_download.py
 python3 data/chatter_slicer.py
 
