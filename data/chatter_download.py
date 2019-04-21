@@ -14,7 +14,7 @@ audio_dataset_path = "data/temp/chatter_audio/"
 
 chatter_tag = "/m/07rkbfh"
 
-data = pd.read_csv("unbalanced_train_segments.csv", header = None, names = ["id", "start", "end", "tag"])
+data = pd.read_csv("data/unbalanced_train_segments.csv", header = None, names = ["id", "start", "end", "tag"])
 
 for i in range(data.shape[0]):
 
