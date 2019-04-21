@@ -9,8 +9,8 @@ import pandas as pd
 import os
 import subprocess
 
-video_dataset_path = "temp/chatter_video/"
-audio_dataset_path = "temp/chatter_audio/"
+video_dataset_path = "data/temp/chatter_video/"
+audio_dataset_path = "data/temp/chatter_audio/"
 
 chatter_tag = "/m/07rkbfh"
 

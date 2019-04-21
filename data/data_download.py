@@ -9,10 +9,10 @@ from video_generator import *
 
 def main():
 
-	videos_path = "videos/"
-	audio_dataset_path = "clean_audios/"
+	videos_path = "data/videos/"
+	audio_dataset_path = "data/clean_audios/"
 
-	data = pd.read_csv("avspeech_train.csv", header = None, names = ["id", "start", "end", "x", "y"])
+	data = pd.read_csv("data/avspeech_train.csv", header = None, names = ["id", "start", "end", "x", "y"])
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--from_id", type = int, default = 0)

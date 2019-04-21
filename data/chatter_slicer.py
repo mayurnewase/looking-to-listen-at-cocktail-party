@@ -5,8 +5,8 @@ import pickle
 import shutil
 import numpy as np
 
-op_chatter_path = "chatter_audios/"    #chatter_3_seconds
-ip_chatter_path = "temp/chatter_audio/"
+op_chatter_path = "data/chatter_audios/"    #chatter_3_seconds
+ip_chatter_path = "data/temp/chatter_audio/"
 
 sample_rate = 16000
 duration = 3
