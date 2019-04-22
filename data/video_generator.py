@@ -24,7 +24,7 @@ class VideoExtract():
 
         self.fps = fps
         self.duration = duration
-        self.face_extraction_model
+        self.face_extraction_model = face_extraction_model
 
         if not os.path.isdir(destination_dir):
             os.mkdir(destination_dir)
