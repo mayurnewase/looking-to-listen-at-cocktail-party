@@ -73,7 +73,7 @@ def main():
 			print("========extract wav failed skipping mixing speakers or video extraction=======")
 			continue
 
-		sb.mix_speakers(data.loc[i, "id"])  #speaker + speaker in mixed_speakers
+		sb.extract_wav(data.loc[i, "id"])  #speaker + speaker in mixed_speakers
 		result = vs.extract_video(data.loc[i, "id"], data.loc[i, "x"], data.loc[i, "y"])  #extract video embeddings in speaker_clean_video
 
 		if result == 1 :
