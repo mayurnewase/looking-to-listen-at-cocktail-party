@@ -26,15 +26,15 @@ class VideoExtract():
         self.duration = duration
         self.face_extraction_model = face_extraction_model
 
-        if not os.path.isdir(destination_dir):
-            os.mkdir(destination_dir)
+        if not os.path.isdir(self.destination_dir):
+            os.mkdir(self.destination_dir)
 
-        if not os.path.isdir(frames_dir):
-            os.mkdir(frames_dir)
+        if not os.path.isdir(self.frames_dir):
+            os.mkdir(self.frames_dir)
             
-        if not os.path.isdir(model_dir):
-            os.mkdir(model_dir)
-            download_and_extract_file(model_name = "20180402-114759", data_dir = model_dir)
+        if not os.path.isdir(self.model_dir):
+            os.mkdir(self.model_dir)
+            download_and_extract_file(model_name = "20180402-114759", data_dir = self.model_dir)
 
     def extract_video(self, id, x, y, fps, duration, face_extraction_model):
 
