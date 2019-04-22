@@ -15,10 +15,10 @@ class SpeakerBackground():
 	def __init__(self, chatter_part = 1, sample_rate = 16000, duration = 3, mono = True, window = 400, stride = 160, fft_length = 512, amp_norm = 0.3, 
 		chatter_norm = 0.3):
 
-		self.orig_dataset = "videos/"
-		self.clean_audio = "clean_audios/"
-		self.spect_path = "speaker_background_spectrograms/"
-		self.chatter_path = "chatter_audios/"
+		self.orig_dataset = "data/videos/"
+		self.clean_audio = "data/clean_audios/"
+		self.spect_path = "data/speaker_background_spectrograms/"
+		self.chatter_path = "data/chatter_audios/"
 
 		self.chatter_files = [f for f in os.listdir(self.chatter_path) if os.path.isfile(os.path.join(self.chatter_path, f))]
 		self.chatter_part = chatter_part
