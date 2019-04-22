@@ -12,7 +12,7 @@ from tensorflow.python.ops import io_ops
 
 class SpeakerBackground():
 
-	def __init__(self, chatter_slot = 1, sample_rate = 16000, duration = 3, mono = True, window = 400, stride = 160, fft_length = 512, amp_norm = 0.3, 
+	def __init__(self, chatter_part = 1, sample_rate = 16000, duration = 3, mono = True, window = 400, stride = 160, fft_length = 512, amp_norm = 0.3, 
 		chatter_norm = 0.3):
 
 		self.orig_dataset = "videos/"
