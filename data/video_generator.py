@@ -32,7 +32,7 @@ class VideoExtract():
         if not os.path.isdir(self.frames_dir):
             os.mkdir(self.frames_dir)
             
-        if not os.path.isdir(self.model_dir):
+        if not os.path.isfile(self.model_dir + "20180402-114759.zip"):
             os.mkdir(self.model_dir)
             download_and_extract_file(model_name = "20180402-114759", data_dir = self.model_dir)
 
