@@ -18,7 +18,7 @@ class SpeakerBackground():
 		self.orig_dataset = "data/videos/"
 		self.clean_audio = "data/clean_audios/"
 		self.spect_path = "data/speaker_background_spectrograms/"
-		self.chatter_path = "data/chatter_audios/"
+		self.chatter_path = "data/chatter_audios/part_"+str(chatter_part)
 
 		self.chatter_files = [f for f in os.listdir(self.chatter_path) if os.path.isfile(os.path.join(self.chatter_path, f))]
 		self.chatter_part = chatter_part
