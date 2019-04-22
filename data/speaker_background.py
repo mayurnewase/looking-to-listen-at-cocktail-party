@@ -20,7 +20,7 @@ class SpeakerBackground():
 		self.spect_path = "speaker_background_spectrograms/"
 		self.chatter_path = "chatter_audio/"
 
-		self.chatter_files = [f for f in os.listdir(chatter_path) if os.path.isfile(os.path.join(self.chatter_path, f))]
+		self.chatter_files = [f for f in os.listdir(self.chatter_path) if os.path.isfile(os.path.join(self.chatter_path, f))]
 		self.chatter_part = chatter_part
 
 		self.sample_rate = sample_rate
