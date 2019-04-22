@@ -60,7 +60,8 @@ def main():
 				continue
 
 			#trim video
-			d1 = "ffmpeg" + " -ss " + str(data.loc[i,"start"]) + " -i \"" + res1 + "\"" + " -t " + str(data.loc[i, "end"] - data.loc[i, "start"])
+			d1 = "ffmpeg" + " -ss " + str(data.loc[i,"start"]) + " -i \"" 
+			d3 = res1 + "\"" + " -t " + str(data.loc[i, "end"] - data.loc[i, "start"])
 			d2 = " -c:v copy -c:a copy " + videos_path + str(data.loc[i,"id"]) + ".mp4"
 			download = "ffmpeg" + " -ss " + str(data.loc[i,"start"]) + " -i \"" + res1 + "\"" + " -t " + str(data.loc[i, "end"] - data.loc[i, "start"]) + " -c:v copy -c:a copy " + videos_path + str(data.loc[i,"id"]) + ".mp4"
 			res2 = subprocess.Popen(download, stdout = subprocess.PIPE, shell=True).communicate()
