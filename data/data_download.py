@@ -27,6 +27,7 @@ def main():
 
 	parser.add_argument("--sample_rate", type = int, default = 16000)
 	parser.add_argument("--duration", type = int, default = 3)
+	parser.add_argument("--fps", type = int, default = 25)
 	parser.add_argument("--mono", type = str, default = True)
 	parser.add_argument("--window", type = int, default = 400)
 	parser.add_argument("--stride", type = int, default = 160)
