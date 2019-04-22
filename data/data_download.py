@@ -47,7 +47,7 @@ def main():
 	ms = MixSpeakers(sample_rate = args.sample_rate, duration = args.duration, mono = args.mono, window = args.window,
 		stride = args.stride, fft_length = args.fft_length, amp_norm = args.amp_norm)
 
-	vs = VideoExtract(args.from_id, args.to_id, args.fps, args.duration, args.video_part, args.face_extraction_model)
+	vs = VideoExtract(args.fps, args.duration, args.video_part, args.face_extraction_model)
 
 	for i in range(args.from_id, args.to_id):
 
