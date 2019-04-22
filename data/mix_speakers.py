@@ -38,14 +38,14 @@ class MixSpeakers():
 		self.mix_speakers_dir = "two_speakers_mix_spectrograms/"
 
 		
-		if not os.path.isdir(clean_audio):
-			os.mkdir(clean_audio)
+		if not os.path.isdir(self.clean_audio):
+			os.mkdir(self.clean_audio)
 
-		if not os.path.isdir(mix_speakers_dir):
-			os.mkdir(mix_speakers_dir)
+		if not os.path.isdir(self.mix_speakers_dir):
+			os.mkdir(self.mix_speakers_dir)
 
 
-	def find_spec(speaker_id, src_file , destination_file):
+	def find_spec(self, speaker_id, src_file , destination_file):
 		print("-------------finding spectro----------------")
 		with tf.Session(graph=tf.Graph()) as sess:
 			holder = tf.placeholder(tf.string, [])
@@ -63,7 +63,7 @@ class MixSpeakers():
 			pickle.dump(stft, open(destination_file, "wb"))
 			print("============STFT SHAPE IS {0}=============".format(stft.shape))
 
-	def mix_speakers(speaker_id):    #take current speaker id to mix with other speakers
+	def mix_speakers(self, speaker_id):    #take current speaker id to mix with other speakers
 
 		print("-------Mixing {} speakers------".format(speaker_id))
 
@@ -72,7 +72,7 @@ class MixSpeakers():
 			all_speakers = os.listdir(self.mix_speakers_dir)
 
 			os.mkdir(self.mix_speakers_dir + speaker_id)
-			find_spec(speaker_id, src_file = self.clean_audio + speaker_id + ".wav" , destination_file = self.mix_speakers_dir + speaker_id + "/" + speaker_id + ".pkl") 
+			self.find_spec(speaker_id, src_file = self.clean_audio + speaker_id + ".wav" , destination_file = self.mix_speakers_dir + speaker_id + "/" + speaker_id + ".pkl") 
 
 			curr_audio, _ = librosa.load(self.clean_audio + speaker_id + ".wav", sr = self.sample_rate, mono = self.mono, duration = self.duration)
 
@@ -84,7 +84,7 @@ class MixSpeakers():
 				mixed_audio = curr_audio + old_audio
 				librosa.output.write_wav(self.mix_speakers_dir+ old_speaker+"/" +old_speaker+ "_" +speaker_id+ ".wav", mixed_audio, self.sample_rate, norm = False)  #delete this file
 
-				find_spec(old_speaker, src_file = self.mix_speakers_dir+ old_speaker+ "/"+ old_speaker+ "_" +speaker_id+ ".wav", destination_file= self.mix_speakers_dir+ old_speaker+"/" + old_speaker+ "_" + speaker_id + ".pkl")
+				self.find_spec(old_speaker, src_file = self.mix_speakers_dir+ old_speaker+ "/"+ old_speaker+ "_" +speaker_id+ ".wav", destination_file= self.mix_speakers_dir+ old_speaker+"/" + old_speaker+ "_" + speaker_id + ".pkl")
 
 				os.remove(self.mix_speakers_dir+ old_speaker+ "/"+ old_speaker+ "_" +speaker_id+ ".wav")
 
