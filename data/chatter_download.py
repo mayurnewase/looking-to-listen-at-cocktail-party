@@ -34,8 +34,6 @@ for i in range(data.shape[0]):
 		if(os.path.isfile(video_dataset_path + data.loc[i, "id"] + ".mp4")):
 			os.remove(video_dataset_path + data.loc[i, "id"] + ".mp4")
 
-	else:
-		print("skppiing", i)
 
 
 
