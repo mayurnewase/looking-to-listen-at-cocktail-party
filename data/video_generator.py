@@ -36,7 +36,7 @@ class VideoExtract():
             os.mkdir(model_dir)
             download_and_extract_file(model_name = "20180402-114759", data_dir = model_dir)
 
-    def extract_video(self, id, x, y, fps = self.fps, duration = self.duration, face_extraction_model = self.face_extraction_model):
+    def extract_video(self, id, x, y, fps, duration, face_extraction_model):
 
         #See csv file for id and check orig folder for video
         with tf.Graph().as_default():
@@ -56,7 +56,7 @@ class VideoExtract():
                 if (not os.path.isfile(self.destination_dir + id + ".pkl")):
                     #resample 25 fps, 3 second
                     print("Resampling video", id, i)
-                    resample = "ffmpeg -y -i {1}{2}.mp4 -r {0} -t {3} '{4}{2}.mp4'".format(fps, self.orig_dataset, id, duration, self.destination_dir)
+                    resample = "ffmpeg -y -i {1}{2}.mp4 -r {0} -t {3} '{4}{2}.mp4'".format(self.fps, self.orig_dataset, id, duration, self.destination_dir)
                     print(resample)
                     res2 = subprocess.Popen(resample, stdout = subprocess.PIPE, shell=True).communicate()
                     
@@ -77,7 +77,7 @@ class VideoExtract():
                           
                         #print("reading frame, {0}".format(j))
                         frame = Image.open(self.frames_dir + "%02d" % j + ".jpg")
-                        face_boxes = face_recognition.face_locations(np.array(frame), model= face_extraction_model)
+                        face_boxes = face_recognition.face_locations(np.array(frame), model= self.face_extraction_model)
                         
                         if(len(face_boxes) > 1):  #if 2 faces are detected,then take center of box from csv and find nearest center from 2 boxes
                             print("-----2 faces detected in {0} frame {1}-----".format(data.loc[i, "id"], j))
