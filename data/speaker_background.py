@@ -94,8 +94,8 @@ class SpeakerBackground():
 			#Used for mixing speakers later if required so don't delete this.
 			librosa.output.write_wav(self.clean_audio +  wavfile, data, self.sample_rate, norm = False)    
 
-			find_spec(filename , 0)
-			mix_audio(filename)
+			self.find_spec(filename , 0)
+			self.mix_audio(filename)
 			os.remove(self.spect_path + filename + "/" + wavfile)		#remove clean file from spect dir after mixing with all chatters
 
 		else:
