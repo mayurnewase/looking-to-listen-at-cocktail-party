@@ -13,6 +13,7 @@ def main():
 	audio_dataset_path = "data/clean_audios/"
 
 	data = pd.read_csv("data/avspeech_train.csv", header = None, names = ["id", "start", "end", "x", "y"])
+	print(data.head())
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--from_id", type = int, default = 0)
