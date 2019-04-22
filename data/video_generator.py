@@ -46,7 +46,6 @@ class VideoExtract():
                 embedding = tf.get_default_graph().get_tensor_by_name("embeddings:0")
                 train_placeholder = tf.get_default_graph().get_tensor_by_name("phase_train:0")
                 
-                id = data.loc[i, "id"]
                 embeddings = np.zeros((75, 512))
                 
                 if not os.path.isfile(self.orig_dataset + id + ".mp4"):   #if video in csv but not in dataset -> wasn't available on youtube
