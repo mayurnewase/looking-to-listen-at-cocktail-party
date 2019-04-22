@@ -17,7 +17,7 @@ class VideoExtract():
 
     def __init__(self, fps, duration, video_part, face_extraction_model):
 
-        self.destination_dir = "data/speaker_video_spectrograms_" + str(video_part) + "/"
+        self.destination_dir = "data/speaker_video_embeddings/part_" + str(video_part) + "/"
         self.orig_dataset = "data/videos/"
         self.frames_dir = "data/frames/"
         self.model_dir = "data/pretrained_model/"
