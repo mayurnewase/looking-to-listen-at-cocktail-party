@@ -30,7 +30,7 @@ pip install face_recognition
 sudo apt-get --assume-yes install ffmpeg
 sudo apt-get --assume-yes --fix-missing install youtube-dl
 
-rm -rf data/temp/*
+#rm -rf data/temp/*
 
 
 echo "Done setting up directories and environment,now proceed to download dataset...."
