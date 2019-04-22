@@ -36,7 +36,7 @@ class VideoExtract():
             os.mkdir(self.model_dir)
             download_and_extract_file(model_name = "20180402-114759", data_dir = self.model_dir)
 
-    def extract_video(self, id, x, y, fps, duration, face_extraction_model):
+    def extract_video(self, id, x, y):
 
         #See csv file for id and check orig folder for video
         with tf.Graph().as_default():
@@ -56,7 +56,7 @@ class VideoExtract():
                 if (not os.path.isfile(self.destination_dir + id + ".pkl")):
                     #resample 25 fps, 3 second
                     print("Resampling video", id, i)
-                    resample = "ffmpeg -y -i {1}{2}.mp4 -r {0} -t {3} '{4}{2}.mp4'".format(self.fps, self.orig_dataset, id, duration, self.destination_dir)
+                    resample = "ffmpeg -y -i {1}{2}.mp4 -r {0} -t {3} '{4}{2}.mp4'".format(self.fps, self.orig_dataset, id, self.duration, self.destination_dir)
                     print(resample)
                     res2 = subprocess.Popen(resample, stdout = subprocess.PIPE, shell=True).communicate()
                     
