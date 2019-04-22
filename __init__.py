@@ -55,6 +55,9 @@ STEPS:
 
 	install requirements
 	./prepare_directory
+	
+	download avspeech dataset and put in data/
+	
 	python3 data/chatter_download.py
 	python3 data/chatter_slicer.py
 	
