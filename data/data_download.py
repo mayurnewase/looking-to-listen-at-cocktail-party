@@ -37,16 +37,16 @@ def main():
 	parser.add_argument("--face_extraction_model", type = str, default = "cnn")
 	args = parser.parse_args()
 
-	if args.type_of_dataset == "audio_dataset":
-		sb = SpeakerBackground(chatter_part = args.chatter_part, sample_rate = args.sample_rate, 
-			duration = args.duration, mono = args.mono, window = args.window, stride = args.window, fft_length = args.fft_length, amp_norm = args.amp_norm, 
-			chatter_norm = args.chatter_norm)
-	
-	if args.type_of_dataset == "audio_video_dataset":
-		ms = MixSpeakers(sample_rate = args.sample_rate, duration = args.duration, mono = args.mono, window = args.window,
-			stride = args.stride, fft_length = args.fft_length, amp_norm = args.amp_norm)
+	#if args.type_of_dataset == "audio_dataset":
+	sb = SpeakerBackground(chatter_part = args.chatter_part, sample_rate = args.sample_rate, 
+		duration = args.duration, mono = args.mono, window = args.window, stride = args.window, fft_length = args.fft_length, amp_norm = args.amp_norm, 
+		chatter_norm = args.chatter_norm)
 
-		vs = VideoExtract(args.from_id, args.to_id, args.fps, args.duration, args.video_part, face_extraction_model)
+	#if args.type_of_dataset == "audio_video_dataset":
+	ms = MixSpeakers(sample_rate = args.sample_rate, duration = args.duration, mono = args.mono, window = args.window,
+		stride = args.stride, fft_length = args.fft_length, amp_norm = args.amp_norm)
+
+	vs = VideoExtract(args.from_id, args.to_id, args.fps, args.duration, args.video_part, face_extraction_model)
 
 	for i in range(args.from_id, args.to_id):
 
