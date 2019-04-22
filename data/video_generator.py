@@ -54,7 +54,7 @@ class VideoExtract():
                 
                 if (not os.path.isfile(self.destination_dir + id + ".pkl")):
                     #resample 25 fps, 3 second
-                    print("Resampling video", id, i)
+                    print("Resampling video", id)
                     resample = "ffmpeg -y -i {1}{2}.mp4 -r {0} -t {3} '{4}{2}.mp4'".format(self.fps, self.orig_dataset, id, self.duration, self.destination_dir)
                     print(resample)
                     res2 = subprocess.Popen(resample, stdout = subprocess.PIPE, shell=True).communicate()
