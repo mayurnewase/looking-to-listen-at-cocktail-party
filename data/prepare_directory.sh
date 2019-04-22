@@ -32,4 +32,7 @@ sudo apt-get --assume-yes --fix-missing install youtube-dl
 
 rm -rf data/temp/*
 
+wget https://storage.cloud.google.com/avspeech-files/avspeech_train.csv -P data/
+wget https://storage.cloud.google.com/avspeech-files/avspeech_test.csv -P data/
+
 echo "Done setting up directories and environment,now proceed to download dataset...."
