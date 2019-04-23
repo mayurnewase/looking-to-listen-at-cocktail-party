@@ -34,8 +34,8 @@ class MixSpeakers():
 		self.fft_length = fft_length
 		self.amp_norm = amp_norm
 
-		self.clean_audio = "clean_audios/"
-		self.mix_speakers_dir = "two_speakers_mix_spectrograms/"
+		self.clean_audio = "data/clean_audios/"
+		self.mix_speakers_dir = "data/two_speakers_mix_spectrograms/"
 
 		
 		if not os.path.isdir(self.clean_audio):
