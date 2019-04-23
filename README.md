@@ -2,7 +2,7 @@
 
 This is Keras+Tensorflow implementation of paper ["Looking to listen at the cocktail party: A speaker-independent audio-visual model for speech separation"](https://arxiv.org/abs/1804.03619)
 from Ephrat et el. from Google Research.
-The project also uses ideas from the paper ["SEEING THROUGH NOISE:VISUALLY DRIVEN SPEAKER SEPARATION AND ENHANCEMENT"](https://arxiv.org/pdf/1708.06767.pdf)
+The project also uses ideas from the paper ["Seeing Through Noise:Visually Driven Speaker Seperation and Enhancement"](https://arxiv.org/pdf/1708.06767.pdf)
 
 ## Compatibility
 The code is tested using Tensorflow 1.13.1 under Ubuntu 18.00 with python 3.6.
