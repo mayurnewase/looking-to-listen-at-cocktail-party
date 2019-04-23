@@ -3,7 +3,7 @@
 mkdir -p data/speaker_background_spectrograms
 
 mkdir -p data/two_speakers_mix_spectrograms/
-mkdir -p data/two_speakers_mix_spectrograms/part_1
+mkdir -p data/two_speakers_mix_spectrograms/
 
 mkdir -p data/speaker_video_embeddings/
 mkdir -p data/speaker_video_embeddings/part_1
