@@ -58,19 +58,19 @@ python data/chatter_slicer.py
 ```
 python data/data_data_download.py --from_id=0 --to_id=1000 --type_of_dataset=audio_dataset
 ```
-```
 Arguments available
+```
 from_id -> start downloading youtube clips download from train.csv from this id
 to_id -> start downloading youtube clips download from train.csv to this id
 type_of_dataset -> type of dataset to prepare.
   audio_dataset -> create audio spectrogram mixed with background chatter
   audio_video_dataset -> create audio spectrogram and video embeddings and spectrograms of speaker mixed other speakers audio.
-  low_memory -> clear unnecessary stuff
-  chatter_part -> user different slots of chatter files to be mixed with clean speakers audio
-  sample_rate,duration,fps,mono,window,stride,fft_length,amp_norm,chatter_norm -> arguments for STFT and audio processing
-  face_extraction_model -> select which model to use for facial embedding extraction
-    hog -> faster on cpu but less accurate
-    cnn -> slower on cpu,faster on nvidia gpu,more accurate
+low_memory -> clear unnecessary stuff
+chatter_part -> user different slots of chatter files to be mixed with clean speakers audio
+sample_rate,duration,fps,mono,window,stride,fft_length,amp_norm,chatter_norm -> arguments for STFT and audio processing
+face_extraction_model -> select which model to use for facial embedding extraction
+  hog -> faster on cpu but less accurate
+  cnn -> slower on cpu,faster on nvidia gpu,more accurate
 ```
 
 
