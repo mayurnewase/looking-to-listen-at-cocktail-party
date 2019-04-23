@@ -75,10 +75,11 @@ def main():
 			continue
 
 		sb.extract_wav(data.loc[i, "id"])  #speaker + speaker in mixed_speakers
+		
 		result = vs.extract_video(data.loc[i, "id"], data.loc[i, "x"], data.loc[i, "y"])  #extract video embeddings in speaker_clean_video
-
 		if result == 1 :
 			print("video embedding extraction failed see logs for reason")
+		ms.mix_speakers(data.loc[i, "id"])
 
 	print("Done creating dataset")
 	if (args.low_memory == "yes"):
