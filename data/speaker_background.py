@@ -65,14 +65,14 @@ class SpeakerBackground():
 			f1, _ = librosa.load(self.spect_path + filename + "/" + filename + ".wav", sr = self.sample_rate, mono = self.mono, duration = self.duration)  #load clean file
 			f2, _ = librosa.load(self.chatter_path + chatter, sr = self.sample_rate, mono = self.mono, duration = self.duration)		#load chatter file
 
-			combo = f1 + (chatter_norm * f2)
+			combo = f1 + (self.chatter_norm * f2)
 			
 			mix_name = filename + "_mix_" + str(index)
 			librosa.output.write_wav(self.spect_path + filename + "/" + mix_name + ".wav", combo , sr = self.sample_rate , norm = False)     #DELETE MIX FILE -> stored mix in seperate directory
 
 			find_spec(filename, 1, mix_name)
 			os.remove(self.spect_path + filename + "/" + mix_name + ".wav")   #delete mixed wav after getting spec
-
+.
 
 	def extract_wav(self, filename):
 		print("-----------extracting audio-------------")
