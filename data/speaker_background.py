@@ -72,7 +72,7 @@ class SpeakerBackground():
 
 			find_spec(filename, 1, mix_name)
 			os.remove(self.spect_path + filename + "/" + mix_name + ".wav")   #delete mixed wav after getting spec
-.
+
 
 	def extract_wav(self, filename):
 		print("-----------extracting audio-------------")
