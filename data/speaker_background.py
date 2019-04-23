@@ -70,7 +70,7 @@ class SpeakerBackground():
 			mix_name = filename + "_mix_" + str(index)
 			librosa.output.write_wav(self.spect_path + filename + "/" + mix_name + ".wav", combo , sr = self.sample_rate , norm = False)     #DELETE MIX FILE -> stored mix in seperate directory
 
-			find_spec(filename, 1, mix_name)
+			self.find_spec(filename, 1, mix_name)
 			os.remove(self.spect_path + filename + "/" + mix_name + ".wav")   #delete mixed wav after getting spec
 
 
