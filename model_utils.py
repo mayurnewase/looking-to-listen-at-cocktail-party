@@ -1,6 +1,6 @@
-
-
-
+import tensorflow as tf
+import numpy as np
+import pickle
 
 def trainGen(batch_size, train_dic, num_steps):
     #for i in range(3):  # for epochs

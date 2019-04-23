@@ -1,6 +1,8 @@
 from models import *
-from utils import *
+from model_utils import *
+from audio_utils import *
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau, TensorBoard
+import argparse
 
 def main():
 
@@ -9,14 +11,30 @@ def main():
 	parser.add_argument("--epochs", type = int, default = 10)
 	parser.add_argument("--lr", type = int, default = 0.001)
 	parser.add_argument("--es_patience", type = int, default = 30)
+	parser.add_argument("--model_type", type = str, default = "audio_model")  #audio_model/audio_video_model
+
+	parser.add_argument("--filters", type = int, default = 32)
+	parser.add_argument("--dropout", type = int, default = 0.2)
+	parser.add_argument("--audio_shape", nargs='+', type = int) #only for audio_video_model, default = 298,257
+	parser.add_argument("--video_shape", nargs="+", type = int) #only for audio_video_model, default = 75,512
+
 
 	args = parser.parse_args()
 
-	model = FullModel()
-	#model = load_model("../input/video-model-2-speakers-big-audio/model.h5", custom_objects = {"tf" : tf, "loss" : loss})
-	model.compile(loss = [loss, loss], optimizer = Adam(lr = 0.0001), metrics = ["mse"])
+	if args.model_type == "audio_model":
+		model,db_model = AudioOnlyModel(filters = args.filters, dropout = args.dropout)
+		model.compile(loss = loss, optimizer = Adam(lr = 0.0001), metrics = ["mse"])
+
+	if args.model_type == "audio_video_model":
+		vm = VideoModel(filters = args.filters, 
+			audio_ip_shape = args.audio_shape, video_ip_shape = args.video_shape)
+
+		#model = load_model("../input/video-model-2-speakers-big-audio/model.h5", custom_objects = {"tf" : tf, "loss" : loss})
+		model.compile(loss = [loss, loss], optimizer = Adam(lr = 0.0001), metrics = ["mse"])
 
 	batch_size = args.batch_size
+
+	train_dic, val_dic = load_data(model_type)
 
 	train_steps = int(np.floor(len(train_dic) / batch_size))
 	val_steps = int(np.floor(len(val_dic) / batch_size))

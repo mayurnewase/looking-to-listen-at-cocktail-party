@@ -1,0 +1,56 @@
+def load_data(model, slot):
+
+	if model = "audio_model":
+		path = 
+		files1 = os.listdir(path1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

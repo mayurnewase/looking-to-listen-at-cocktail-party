@@ -5,11 +5,13 @@ from keras.optimizers import Adam
 from keras.models import load_model
 from keras.callbacks import TensorBoard
 
+import tensorflow as tf
 
-def AudioOnlyModel(filters = 32, dropout = 0.2):
+
+def AudioOnlyModel(filters = 32, dropout = 0.2, audio_shape = [298, 257]):
     #298 is temporal dimension
     #don't use for loss calculation
-    ip = Input(shape = (data_shape[0], data_shape[1], 2)) ; print("input", ip.shape)
+    ip = Input(shape = (audio_shape[0], audio_shape[1], 2)) ; print("input", ip.shape)
     ip_magnitude = Lambda(lambda x : x[:,:,:,0],name="ip_mag")(ip); print("ip_mag ", ip_magnitude.shape)  #takes magnitude from stack[magnitude,phase]
     ip_phase = Lambda(lambda x : tf.expand_dims(x[:,:,:,1], axis = -1),name="ip_phase")(ip); print("ip_phase ", ip_phase.shape)  #takes phase from stack[magnitude,phase]
        
@@ -87,9 +89,9 @@ def AudioOnlyModel(filters = 32, dropout = 0.2):
     #dense = Dropout(dropout)(dense)
     #dense = Dense(600, activation =  "relu")(dense)
     #dense = Dense(256, activation =  "tanh")(dense)
-    dense = Dense(data_shape[0] * data_shape[1], activation = "sigmoid")(dense)
+    dense = Dense(audio_shape[0] * audio_shape[1], activation = "sigmoid")(dense)
     
-    reshape = Reshape([data_shape[0], data_shape[1]])(dense) ; print("reshape ", reshape.shape)  #mask
+    reshape = Reshape([audio_shape[0], audio_shape[1]])(dense) ; print("reshape ", reshape.shape)  #mask
     output_mag = Lambda(lambda x : tf.multiply(x[0], x[1]), name = "mask_multiply")([ip_magnitude, reshape]) ; print("output_mag", output_mag.shape)
     output_mag = Lambda(lambda x : tf.expand_dims(x, axis= -1), name= "expand_dim")(output_mag) ; print("output_mag_expand", output_mag.shape)
     
@@ -101,7 +103,7 @@ def AudioOnlyModel(filters = 32, dropout = 0.2):
 
 class VideoModel():
 
-	def __init__(self, filters = 64, audio_ip_shape, video_ip_shape):
+	def __init__(self, filters, audio_ip_shape, video_ip_shape):
 
 		self.filters = filters
 		self.audio_ip_shape = audio_ip_shape
@@ -184,83 +186,83 @@ class VideoModel():
 	    
 	    return conv
 
-    def FullModel(self):
+	def FullModel(self):
 
-	    ip = Input(shape = (audio_ip_shape[0], audio_ip_shape[1], 2)) ; print("input_audio", ip.shape) 
-	    ip_embeddings_1 = Input(shape = (video_ip_shape[0], video_ip_shape[1])); print("ip video", ip_embeddings_1.shape)  #[75, 512]
-	    ip_embeddings_2 = Input(shape = (video_ip_shape[0], video_ip_shape[1])); print("ip video", ip_embeddings_2.shape)  #[75, 512]
-	    
-	    ip_magnitude = Lambda(lambda x : x[:,:,:,0],name="ip_mag")(ip); print("ip_mag ", ip_magnitude.shape)  #takes magnitude from stack[magnitude,phase]
-	    ip_phase = Lambda(lambda x : tf.expand_dims(x[:,:,:,1], axis = -1),name="ip_phase")(ip); print("ip_phase ", ip_phase.shape)  #takes phase from stack[magnitude,phase]
-	    
-	    ip_embeddings_1_expanded = Lambda(lambda x : tf.expand_dims(x, axis = -1))(ip_embeddings_1)
-	    ip_embeddings_2_expanded = Lambda(lambda x : tf.expand_dims(x, axis = -1))(ip_embeddings_2)
-	    
-	    audio_stream = AudioModel(ip)
+		ip = Input(shape = (audio_ip_shape[0], audio_ip_shape[1], 2)) ; print("input_audio", ip.shape) 
+		ip_embeddings_1 = Input(shape = (video_ip_shape[0], video_ip_shape[1])); print("ip video", ip_embeddings_1.shape)  #[75, 512]
+		ip_embeddings_2 = Input(shape = (video_ip_shape[0], video_ip_shape[1])); print("ip video", ip_embeddings_2.shape)  #[75, 512]
 
-	    stream_1 = self.conv1(ip_embeddings_1)
-	    stream_1 = self.bn1(stream_1)
-	    stream_1 = self.conv2(stream_1)
-	    stream_1 = self.bn2(stream_1)
-	    stream_1 = self.conv3(stream_1)
-	    stream_1 = self.bn3(stream_1)
-	    stream_1 = self.conv4(stream_1)
-	    stream_1 = self.bn4(stream_1)
-	    stream_1 = self.conv5(stream_1)
-	    stream_1 = self.bn5(stream_1)
-	    stream_1 = self.conv6(stream_1)
-	    stream_1 = self.bn6(stream_1)
-	    stream_1 = self.conv7(stream_1) 
-	    video_stream_1 = self.conv8(stream_1)
-	    
-	    stream_2 = self.conv1(ip_embeddings_2)
-	    stream_2 = self.bn1(stream_2)
-	    stream_2 = self.conv2(stream_2)
-	    stream_2 = self.bn2(stream_2)
-	    stream_2 = self.conv3(stream_2)
-	    stream_2 = self.bn3(stream_2)
-	    stream_2 = self.conv4(stream_2)
-	    stream_2 = self.bn4(stream_2)
-	    stream_2 = self.conv5(stream_2)
-	    stream_2 = self.bn5(stream_2)
-	    stream_2 = self.conv6(stream_2)
-	    stream_2 = self.bn6(stream_2)
-	    stream_2 = self.conv7(stream_2)
-	    video_stream_2 = self.conv8(stream_2)
-	    
-	    audio_flatten = TimeDistributed(Flatten())(audio_stream) 
-	    video_flatten_1 = TimeDistributed(Flatten())(video_stream_1) 
-	    video_flatten_2 = TimeDistributed(Flatten())(video_stream_2)
-	    
-	    print("video Streams ", video_stream_1.shape, video_stream_2.shape)
-	    print("Flatten Streams", video_flatten_1.shape, video_flatten_2.shape, audio_flatten.shape)
-	    
-	    concated = concatenate([audio_flatten, video_flatten_1, video_flatten_2], axis = 2) ;print("concat shape ", concated.shape)
-	    
-	    lstm = Bidirectional(LSTM(units = 64, return_sequences = True, activation = "tanh"))(concated)   ;print("lstm", lstm.shape)
+		ip_magnitude = Lambda(lambda x : x[:,:,:,0],name="ip_mag")(ip); print("ip_mag ", ip_magnitude.shape)  #takes magnitude from stack[magnitude,phase]
+		ip_phase = Lambda(lambda x : tf.expand_dims(x[:,:,:,1], axis = -1),name="ip_phase")(ip); print("ip_phase ", ip_phase.shape)  #takes phase from stack[magnitude,phase]
 
-	    flatten = Flatten()(lstm) ;print("flatten ", flatten.shape)
-	    
-	    dense = Dense(100, activation = "relu")(flatten)
+		ip_embeddings_1_expanded = Lambda(lambda x : tf.expand_dims(x, axis = -1))(ip_embeddings_1)
+		ip_embeddings_2_expanded = Lambda(lambda x : tf.expand_dims(x, axis = -1))(ip_embeddings_2)
 
-	    dense = Dense(2 * audio_ip_shape[0] * audio_ip_shape[1], activation = "sigmoid")(dense) ;print("dense final ",dense.shape)
-	    
-	    combo_mask = Reshape([2 , audio_ip_shape[0], audio_ip_shape[1]])(dense) ; print("combo_mask ", combo_mask.shape)
-	    mask_1 = Lambda(lambda x : x[:,0])(combo_mask) ;print("mask 1 ", mask_1.shape)
-	    mask_2 = Lambda(lambda x : x[:,1])(combo_mask) ;print("mask 2 ", mask_2.shape)
-	    
-	    output_mag_1 = Lambda(lambda x : tf.multiply(x[0], x[1]), name = "mask_multiply_1")([ip_magnitude, mask_1]) ; print("output_mag_1", output_mag_1.shape)
-	    output_mag_2 = Lambda(lambda x : tf.multiply(x[0], x[1]), name = "mask_multiply_2")([ip_magnitude, mask_2]) ; print("output_mag_2", output_mag_2.shape)
-	    
-	    output_mag_1 = Lambda(lambda x : tf.expand_dims(x, axis= -1), name= "expand_dim_1")(output_mag_1) ; print("output_mag_expand_1", output_mag_1.shape)
-	    output_mag_2 = Lambda(lambda x : tf.expand_dims(x, axis= -1), name= "expand_dim_2")(output_mag_2) ; print("output_mag_expand_2", output_mag_2.shape)
-	    
-	    output_final_1 = Lambda(lambda x : tf.concat(values=[x[0], x[1]], axis = -1),name="concat_mag_phase_1")([output_mag_1, ip_phase]) ; print("output_final_1 ", output_final_1.shape)
-	    output_final_2 = Lambda(lambda x : tf.concat(values=[x[0], x[1]], axis = -1),name="concat_mag_phase_2")([output_mag_2, ip_phase]) ; print("output_final_2 ", output_final_2.shape)
-	    
-	    model = Model([ip, ip_embeddings_1, ip_embeddings_2], [output_final_1, output_final_2])
+		audio_stream = AudioModel(ip)
 
-	    return model
+		stream_1 = self.conv1(ip_embeddings_1)
+		stream_1 = self.bn1(stream_1)
+		stream_1 = self.conv2(stream_1)
+		stream_1 = self.bn2(stream_1)
+		stream_1 = self.conv3(stream_1)
+		stream_1 = self.bn3(stream_1)
+		stream_1 = self.conv4(stream_1)
+		stream_1 = self.bn4(stream_1)
+		stream_1 = self.conv5(stream_1)
+		stream_1 = self.bn5(stream_1)
+		stream_1 = self.conv6(stream_1)
+		stream_1 = self.bn6(stream_1)
+		stream_1 = self.conv7(stream_1) 
+		video_stream_1 = self.conv8(stream_1)
+
+		stream_2 = self.conv1(ip_embeddings_2)
+		stream_2 = self.bn1(stream_2)
+		stream_2 = self.conv2(stream_2)
+		stream_2 = self.bn2(stream_2)
+		stream_2 = self.conv3(stream_2)
+		stream_2 = self.bn3(stream_2)
+		stream_2 = self.conv4(stream_2)
+		stream_2 = self.bn4(stream_2)
+		stream_2 = self.conv5(stream_2)
+		stream_2 = self.bn5(stream_2)
+		stream_2 = self.conv6(stream_2)
+		stream_2 = self.bn6(stream_2)
+		stream_2 = self.conv7(stream_2)
+		video_stream_2 = self.conv8(stream_2)
+
+		audio_flatten = TimeDistributed(Flatten())(audio_stream) 
+		video_flatten_1 = TimeDistributed(Flatten())(video_stream_1) 
+		video_flatten_2 = TimeDistributed(Flatten())(video_stream_2)
+
+		print("video Streams ", video_stream_1.shape, video_stream_2.shape)
+		print("Flatten Streams", video_flatten_1.shape, video_flatten_2.shape, audio_flatten.shape)
+
+		concated = concatenate([audio_flatten, video_flatten_1, video_flatten_2], axis = 2) ;print("concat shape ", concated.shape)
+
+		lstm = Bidirectional(LSTM(units = 64, return_sequences = True, activation = "tanh"))(concated)   ;print("lstm", lstm.shape)
+
+		flatten = Flatten()(lstm) ;print("flatten ", flatten.shape)
+
+		dense = Dense(100, activation = "relu")(flatten)
+
+		dense = Dense(2 * audio_ip_shape[0] * audio_ip_shape[1], activation = "sigmoid")(dense) ;print("dense final ",dense.shape)
+
+		combo_mask = Reshape([2 , audio_ip_shape[0], audio_ip_shape[1]])(dense) ; print("combo_mask ", combo_mask.shape)
+		mask_1 = Lambda(lambda x : x[:,0])(combo_mask) ;print("mask 1 ", mask_1.shape)
+		mask_2 = Lambda(lambda x : x[:,1])(combo_mask) ;print("mask 2 ", mask_2.shape)
+
+		output_mag_1 = Lambda(lambda x : tf.multiply(x[0], x[1]), name = "mask_multiply_1")([ip_magnitude, mask_1]) ; print("output_mag_1", output_mag_1.shape)
+		output_mag_2 = Lambda(lambda x : tf.multiply(x[0], x[1]), name = "mask_multiply_2")([ip_magnitude, mask_2]) ; print("output_mag_2", output_mag_2.shape)
+
+		output_mag_1 = Lambda(lambda x : tf.expand_dims(x, axis= -1), name= "expand_dim_1")(output_mag_1) ; print("output_mag_expand_1", output_mag_1.shape)
+		output_mag_2 = Lambda(lambda x : tf.expand_dims(x, axis= -1), name= "expand_dim_2")(output_mag_2) ; print("output_mag_expand_2", output_mag_2.shape)
+
+		output_final_1 = Lambda(lambda x : tf.concat(values=[x[0], x[1]], axis = -1),name="concat_mag_phase_1")([output_mag_1, ip_phase]) ; print("output_final_1 ", output_final_1.shape)
+		output_final_2 = Lambda(lambda x : tf.concat(values=[x[0], x[1]], axis = -1),name="concat_mag_phase_2")([output_mag_2, ip_phase]) ; print("output_final_2 ", output_final_2.shape)
+
+		model = Model([ip, ip_embeddings_1, ip_embeddings_2], [output_final_1, output_final_2])
+
+		return model
 
 
 

@@ -2,7 +2,7 @@ import tensorflow as tf
 import functools
 from tensorflow.contrib.framework.python.ops import audio_ops
 from tensorflow.python.ops import io_ops
-import tensorflow_probability as tfp
+#import tensorflow_probability as tfp
 
 
 def snr(signal_mag, noise_mag):
@@ -42,7 +42,7 @@ def tf_istft(stft):
         inv_st_op = sess.run(inv_st)
         return inv_st_op.T
 
-def write_file(data, name, rate = sample_freq):
+def write_file(data, name, rate):
     encoded_audio_data = tf.contrib.ffmpeg.encode_audio(
         data, file_format="wav", samples_per_second= rate)
 
@@ -51,7 +51,7 @@ def write_file(data, name, rate = sample_freq):
     with tf.Session() as sess:
         sess.run(write_file_op)
         
-def get_complex(stft, power_compression = power_compression):
+def get_complex(stft, power_compression):
     if power_compression:
       stft[:,:,0] = stft[:,:,0] ** (1/0.3)
       
@@ -63,7 +63,7 @@ def get_complex(stft, power_compression = power_compression):
         
     return x
 
-def tf_stft(audio, power_compression = power_compression):
+def tf_stft(audio, power_compression):
       
     with tf.Session(graph=tf.Graph()) as sess:
         holder = tf.placeholder(tf.string, [])
