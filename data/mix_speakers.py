@@ -34,7 +34,7 @@ class MixSpeakers():
 		self.fft_length = fft_length
 		self.amp_norm = amp_norm
 
-		self.clean_audio = "clean_audio/"
+		self.clean_audio = "clean_audios/"
 		self.mix_speakers_dir = "two_speakers_mix_spectrograms/"
 
 		
