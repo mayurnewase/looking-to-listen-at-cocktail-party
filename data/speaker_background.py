@@ -18,7 +18,7 @@ class SpeakerBackground():
 		self.orig_dataset = "data/videos/"
 		self.clean_audio = "data/clean_audios/"
 		self.spect_path = "data/speaker_background_spectrograms/"
-		self.chatter_path = "data/chatter_audios/part_"+str(chatter_part)
+		self.chatter_path = "data/chatter_audios/part_"+str(chatter_part)+"/"
 
 		self.chatter_files = [f for f in os.listdir(self.chatter_path) if os.path.isfile(os.path.join(self.chatter_path, f))]
 		self.chatter_part = chatter_part
@@ -63,7 +63,7 @@ class SpeakerBackground():
 			print("mixing {0} file".format(index))
 
 			f1, _ = librosa.load(self.spect_path + filename + "/" + filename + ".wav", sr = self.sample_rate, mono = self.mono, duration = self.duration)  #load clean file
-			f2, _ = librosa.load(self.chatter_path + "chatter_" + str(self.chatter_slot) + "/" + chatter, sr = self.sample_rate, mono = self.mono, duration = self.duration)		#load chatter file
+			f2, _ = librosa.load(self.chatter_path + chatter, sr = self.sample_rate, mono = self.mono, duration = self.duration)		#load chatter file
 
 			combo = f1 + (chatter_norm * f2)
 			
