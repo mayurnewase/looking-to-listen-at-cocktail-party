@@ -1,4 +1,4 @@
-# Looking to listen at cocktail party
+![alt title](https://github.com/mayurnewase/looking-to-listen-at-cocktail-party/blob/master/assets/logo.png)
 
 This is Keras+Tensorflow implementation of paper ["Looking to listen at the cocktail party: A speaker-independent audio-visual model for speech separation"](https://arxiv.org/abs/1804.03619)
 from Ephrat et el. from Google Research.
