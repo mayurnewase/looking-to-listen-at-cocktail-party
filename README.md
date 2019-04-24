@@ -80,5 +80,5 @@ face_extraction_model -> select which model to use for facial embedding extracti
 ```
 
 ## To do
-Check [here] (https://github.com/users/mayurnewase/projects/2)
+Check [here](https://github.com/users/mayurnewase/projects/2)
 
