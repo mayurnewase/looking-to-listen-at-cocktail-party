@@ -34,7 +34,19 @@ def main():
 
 	batch_size = args.batch_size
 
-	train_dic, val_dic = load_data(model_type)
+	#load data
+	loader = load_data()
+	gen = generators()
+
+	if args.model == "audio_model":
+		train_clean, train_mix = loader.loadAudioData()
+		train_gen = trainAudioGen()
+		#val_gen = valAudioGen()
+
+	if args.model == "audio_video_model":
+		clean, mix = loader.loadAudioVideoData()
+
+
 
 	train_steps = int(np.floor(len(train_dic) / batch_size))
 	val_steps = int(np.floor(len(val_dic) / batch_size))
