@@ -79,5 +79,6 @@ face_extraction_model -> select which model to use for facial embedding extracti
   cnn -> slower on cpu,faster on nvidia gpu,more accurate
 ```
 
-
+## To do
+Check [here] (https://github.com/users/mayurnewase/projects/2)
 
