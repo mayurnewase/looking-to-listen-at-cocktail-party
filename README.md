@@ -10,7 +10,8 @@ The code is tested using Tensorflow 1.13.1 under Ubuntu 18.00 with python 3.6.
 ## News
 | Date     | Update |
 |----------|--------|
-| 23-04-2019 | Added automated scripts for creating database structure.
+| 25-04-2019 | Training scripts and pretrained models coming soon... |
+| 23-04-2019 | Added automated scripts for creating database structure. |
 
 ## Usage
 ### Database structure
