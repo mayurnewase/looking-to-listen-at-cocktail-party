@@ -45,17 +45,21 @@ Given a way to store audio and video datasets efficiently without much duplicati
 ```
 
 ### Getting started
-1.Run prepare_directory script
+1.Install all dependencies
+```
+pip install -r requirements.txt
+```
+2.Run prepare_directory script
 ```
 ./data/prepare_directory.sh
 ```
-2.download avspeech train and test [csv files](https://looking-to-listen.github.io/avspeech/download.html) and put in data/
-3.Run background chatter files downloader and slicer to download and slice chatter files.This will download chatter files with tag "/m/07rkbfh" from [Audioset](https://research.google.com/audioset/index.html)
+3.download avspeech train and test [csv files](https://looking-to-listen.github.io/avspeech/download.html) and put in data/
+4.Run background chatter files downloader and slicer to download and slice chatter files.This will download chatter files with tag "/m/07rkbfh" from [Audioset](https://research.google.com/audioset/index.html)
 ```
 python data/chatter_download.py
 python data/chatter_slicer.py
 ```
-4.Start Downloading data for avspeech dataset and process with your choice with arguments.
+5.Start Downloading data for avspeech dataset and process with your choice with arguments.
 ```
 python data/data_data_download.py --from_id=0 --to_id=1000 --type_of_dataset=audio_dataset
 ```
