@@ -10,7 +10,7 @@ The code is tested using Tensorflow 1.13.1 under Ubuntu 18.00 with python 3.6.
 ## News
 | Date     | Update |
 |----------|--------|
-| 25-04-2019 | Training scripts and pretrained models coming soon... |
+| 25-04-2019 | ***Training scripts and pretrained models coming today*** |
 | 23-04-2019 | Added automated scripts for creating database structure. |
 
 ## Usage
@@ -54,6 +54,7 @@ pip install -r requirements.txt
 ./data/prepare_directory.sh
 ```
 3.download avspeech train and test [csv files](https://looking-to-listen.github.io/avspeech/download.html) and put in data/
+
 4.Run background chatter files downloader and slicer to download and slice chatter files.This will download chatter files with tag "/m/07rkbfh" from [Audioset](https://research.google.com/audioset/index.html)
 ```
 python data/chatter_download.py
