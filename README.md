@@ -88,7 +88,7 @@ face_extraction_model -> select which model to use for facial embedding extracti
 ### Datasets
 1. Video mixed dataset is availble on my kaggle page in 10 parts.(created using default parameters above)
 ```
-Go to my kaggle [profile](https://www.kaggle.com/mayurnewase)
+Go to my kaggle profile(https://www.kaggle.com/mayurnewase)
 Click on datasets
 Sort by new
 Datasets are named by mix_speakers_ultimate_*
