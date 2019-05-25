@@ -10,6 +10,7 @@ The code is tested using Tensorflow 1.13.1 under Ubuntu 18.00 with python 3.6.
 ## News
 | Date     | Update |
 |----------|--------|
+| 25-05-2019 | Datasets added for mixed user videos. |
 | 23-04-2019 | Added automated scripts for creating database structure. |
 
 ## Usage
@@ -82,6 +83,16 @@ sample_rate,duration,fps,mono,window,stride,fft_length,amp_norm,chatter_norm -> 
 face_extraction_model -> select which model to use for facial embedding extraction
   hog -> faster on cpu but less accurate
   cnn -> slower on cpu,faster on nvidia gpu,more accurate
+```
+
+### Datasets
+1. Video mixed dataset is availble on my kaggle page in 10 parts.(created using default parameters above)
+```
+Go to my kaggle [profile](https://www.kaggle.com/mayurnewase)
+Click on datasets
+Sort by new
+Datasets are named by mix_speakers_ultimate_*
+Total 10 parts are available.
 ```
 
 ## To do
