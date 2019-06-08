@@ -14,6 +14,9 @@ The code is tested using Tensorflow 1.13.1 under Ubuntu 18.00 with python 3.6.
 | 25-05-2019 | Datasets added for mixed user videos. |
 | 23-04-2019 | Added automated scripts for creating database structure. |
 
+## External Dependencies
+This repo uses code from [facenet](https://github.com/davidsandberg/facenet.git) and [face_recognition](https://github.com/ageitgey/face_recognition) for tracking and extracting features from faces in videos.
+
 ## Usage
 ### Database structure
 Given a way to store audio and video datasets efficiently without much duplication.
