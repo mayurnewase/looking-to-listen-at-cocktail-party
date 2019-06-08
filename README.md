@@ -10,6 +10,7 @@ The code is tested using Tensorflow 1.13.1 under Ubuntu 18.00 with python 3.6.
 ## News
 | Date     | Update |
 |----------|--------|
+| 08-06-2019 | Notebook added for full pipeline with pretrained model. |
 | 25-05-2019 | Datasets added for mixed user videos. |
 | 23-04-2019 | Added automated scripts for creating database structure. |
 
