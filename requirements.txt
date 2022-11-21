@@ -29,6 +29,6 @@ scikit-image==0.12.3
 scikit-learn==0.20.3
 scipy==1.2.1
 tensorboard==1.13.1
-tensorflow==1.13.1
+tensorflow==2.9.3
 tensorflow-estimator==1.13.0
 youtube-dl==2019.4.30
